@@ -1,5 +1,5 @@
-# Responder
+# Server
 
-A Lambda function that presents the serverless Taskie site. Allows users to manage their taskies through their Discord account.
+A Lambda function that serves the Taskie site. Allows users to manage their taskies through their Discord account.
 
 TODO
