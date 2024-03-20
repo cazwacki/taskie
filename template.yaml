@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Deployment template for taskie
+Resources:
+  CallerLambda:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
+    Properties:
+      CodeUri: functions/caller/
+      Handler: app.lambda_handler
+      Runtime: python3.10
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: CONTACT_FLOW_ID
+        - SSMParameterReadPolicy:
+            ParameterName: INSTANCE_ID
+        - SSMParameterReadPolicy:
+            ParameterName: SOURCE_PHONE_NUMBER
+        - Statement:
+          - Sid: OutboundCallsPolicy
+            Effect: Allow
+            Action:
+              - connect:StartOutboundVoiceContact
+            Resource: '*'
+      Architectures:
+      - x86_64
+
+  # ReminderLambda:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: functions/reminder/
+  #     Handler: app.lambda_handler
+  #     Runtime: python3.10
+  #     Architectures:
+  #     - x86_64
+
+  ResponderLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/responder/
+      Handler: app.lambda_handler
+      Runtime: python3.10
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: DISCORD_PUBLIC_KEY
+        - SSMParameterReadPolicy:
+            ParameterName: SITE_HOST
+      Events:
+        DiscordEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+      Architectures:
+      - x86_64
+
+  # ServerLambda:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: functions/server/
+  #     Handler: app.lambda_handler
+  #     Runtime: python3.10
+  #     Architectures:
+  #     - x86_64
