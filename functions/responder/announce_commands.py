@@ -13,7 +13,7 @@ response = requests.put(url, headers={
     'Authorization': f'Bot {bot_token}'
 }, json=[
     {
-        'name': 'help',
+        'name': 'taskie',
         'description': 'Prints the Taskie Management Site',
         'options': []
     }
