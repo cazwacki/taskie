@@ -7,9 +7,11 @@ const Home = () => {
             </div>
             <div className="inline-block col-span-2 m-auto">
                 <h1 className="px-4 py-8 text-2xl">a simple reminder application built to help you get things done</h1>
-                <button className="login text-lg text-white font-bold py-2 px-4 rounded-full">
-                    Login with Discord
-                </button>
+                <a href="https://discord.com/oauth2/authorize?client_id=1218677021698293780&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard&scope=identify">
+                    <button className="login text-lg text-white font-bold py-2 px-4 rounded-full">
+                        Login with Discord
+                    </button>
+                </a>
             </div>
         </div>
         <div class="grid grid-cols-3 gap-4 p-12 w-full xl:w-3/4 m-auto text-left divide-x">
